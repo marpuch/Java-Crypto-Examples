@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 
+import nsc.ssl.crypto.util.ConverterUtil;
+
 import junit.framework.TestCase;
 import sun.misc.BASE64Encoder;
 
@@ -22,6 +24,7 @@ public class HashingFunctionTest extends TestCase {
 		byte[] hash = HashingFunction.hash(text.getBytes());
 		System.out.println("Text: " + text);
 		System.out.println("Hash: " + new BASE64Encoder().encode(hash));
+		System.out.println("Hash: " + ConverterUtil.bytes2hex(hash));
 	}
 
 	public void testHashInputStream() throws IOException, NoSuchAlgorithmException {
@@ -32,6 +35,7 @@ public class HashingFunctionTest extends TestCase {
 		
 		System.out.println("Input: " + inFilename);
 		System.out.println("Hash:  " + new BASE64Encoder().encode(hash));
+		System.out.println("Hash:  " + ConverterUtil.bytes2hex(hash));
 		
 		in.close();
 	}

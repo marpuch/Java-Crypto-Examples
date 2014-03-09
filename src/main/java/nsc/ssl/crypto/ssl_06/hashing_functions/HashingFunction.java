@@ -15,8 +15,8 @@ public class HashingFunction {
 	public static final byte[] hash(InputStream in) throws NoSuchAlgorithmException, IOException {
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
 		byte[] buffer = new byte[1024];
-		while (in.read(buffer) > 0) {
-			md.update(buffer);
+		for (int length = in.read(buffer); length > 0; length = in.read(buffer)) {
+			md.update(buffer, 0, length);
 		}
 		return md.digest();
 	}
