@@ -9,6 +9,27 @@ import java.util.Arrays;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+/**
+ * <p>This class shows an example of how to use a key derivation function like PBKDF2
+ * for storing and verifying user passwords. This is the usual case people have
+ * while implementing user authentication (over passwords) in the systems. There are
+ * multiple pro and cons why you would (or wouldn't) like to use PBKDF2 for this reason.
+ * 
+ * <p>PRO:
+ * <ul>
+ * <li>PBKDF2 is a NIST standard,
+ * <li>you can find an implementation of this function in the core jre libraries (no other
+ * libraries required),
+ * <li>it is a KDF, so it provides (unlike hashing functions) a clean way to include salt
+ * in the hashing process.
+ * </ul>
+ * <p>CON:
+ * <ul>
+ * <li>you can use GPUs to accelerate the hashing process by a great deal. This is a serious
+ * flaw. Password hashing functions are designed to be SLOW and GPUs are one of the cheapest
+ * ways to speed up the hashing process.
+ * 
+ */
 public class PasswordHashingPbkdf2 {
 
 	public static final Pbkdf2Bean hash(char[] password) throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -29,6 +50,8 @@ public class PasswordHashingPbkdf2 {
 
 	private static byte[] generateSalt() {
 		byte[] salt = new byte[16];
+		// NOTE: Never ever use javas Random for crypto.
+		// Use SecureRandom instead.
         SecureRandom random = new SecureRandom();
         random.nextBytes(salt);
 		return salt;
