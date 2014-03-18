@@ -28,6 +28,10 @@ import javax.crypto.spec.PBEKeySpec;
  * <li>you can use GPUs to accelerate the hashing process by a great deal. This is a serious
  * flaw. Password hashing functions are designed to be SLOW and GPUs are one of the cheapest
  * ways to speed up the hashing process.
+ * </ul>
+ * 
+ * NOTE: You might want to consider going one step further and include not only salt, but also pepper. 
+ * See here for more: http://security.stackexchange.com/questions/21263/how-to-apply-a-pepper-correctly-to-bcrypt
  * 
  */
 public class PasswordHashingPbkdf2 {
